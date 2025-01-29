@@ -5,6 +5,12 @@ import io
 
 app = Flask(__name__)
 
+def verify_api_key():
+    api_key = request.headers.get('X-API-Key')
+    if not api_key or api_key != os.environ.get('API_KEY'):
+        return False
+    return True
+
 @app.route('/')
 def home():
     return """
@@ -33,8 +39,8 @@ def home():
             </style>
         </head>
         <body>
-            <h1>🚀 PDF API läuft!</h1>
-            <p>Sende POST Requests an /add-text mit einer PDF-Datei und Text-Konfiguration.</p>
+            <h1>🚀 PDF API RUNNING!</h1>
+            <p>Send POST Requests to /add-text with your PDF-file and Text-config.</p>
         </body>
     </html>
     """
