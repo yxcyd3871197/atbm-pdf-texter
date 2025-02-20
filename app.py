@@ -48,6 +48,10 @@ def home():
 @app.route('/add-text', methods=['POST'])
 def add_text():
     try:
+        # API-Key-Überprüfung
+        if not verify_api_key():
+            return jsonify({'error': 'Unauthorized'}), 403
+
         if 'pdf' not in request.files:
             return jsonify({'error': 'Keine PDF-Datei gefunden'}), 400
 
